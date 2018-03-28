@@ -8,8 +8,8 @@ import (
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 
-	"common"
-	"store"
+	"echo_socket_server/common"
+	"echo_socket_server/store"
 )
 
 // CreateBookmark insert a new Bookmark.

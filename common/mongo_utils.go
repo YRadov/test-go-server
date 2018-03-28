@@ -39,6 +39,26 @@ func createDBSession() {
 	}
 }//createDBSession
 
+// Add indexes into MongoDB
+func addIndexes() {
+	var err error
+	userIndex := mgo.Index{
+		Key:        []string{"email"},
+		Unique:     true,
+		Background: true,
+		Sparse:     true,
+	}
+	// Add indexes into MongoDB
+	session := GetSession().Copy()
+	defer session.Close()
+	userCol := session.DB(AppConfig.Database).C("users")
+
+	err = userCol.EnsureIndex(userIndex)
+	if err != nil {
+		log.Fatalf("[addIndexes]: %s\n", err)
+	}
+}
+
 // DataStore for MongoDB
 type DataStore struct {
 	MongoSession *mgo.Session
